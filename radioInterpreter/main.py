@@ -26,10 +26,40 @@ def read_log(log_file_from_user):
 
 
 def get_problems():
+    # It will get the problems from user
+    pass
+
+
+def get_key_words(problems):
+    # For each problem, it will return a list os key words from DB
+    pass
+
+
+def parse_log_with_key_words(key_words):
+    # It will parse the log getting all lines that have the key words
     pass
 
 
 if __name__ == "__main__":
+    # Criar banco mongodb - ok
+    # Conectar ao django
+    # Escrever models
+
+    example_os = {
+        "id": 1,
+        "OS": "OO"
+    }
+    example_themes = {
+        "id": 1,
+        "theme": "Emergency Numbers"
+    }
+
+    example_matches = {
+        "theme": 1,
+        "os": 1,
+        "key_words": ["SIM-MGR", "EmergencyTracker:"]
+    }
+
     print('Starting Project:')
     log_file = 'logcat.log'
 
