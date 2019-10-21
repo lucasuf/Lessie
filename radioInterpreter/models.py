@@ -40,7 +40,6 @@ class Key(models.Model):
 
 
 class RadioKey(models.Model):
-    # TODO: A adição de keys não está bacana
     keys = models.ManyToManyField(Key)
     theme = models.ForeignKey(Theme, on_delete=models.CASCADE)
 
