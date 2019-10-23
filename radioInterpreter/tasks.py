@@ -16,8 +16,9 @@ description and provide a comment automatically.
 def read_log(log_file_from_user):
     try:
         if 'logcat' in log_file_from_user:
-            log = open(log_file_from_user)
-            return log
+            with open(log_file_from_user, 'r') as log_obj:
+                log_str = log_obj.read()
+            return log_str
         else:
             print("We are not dealing with dumpstate file yet!")
 
@@ -41,27 +42,8 @@ def parse_log_with_key_words(key_words):
 
 
 if __name__ == "__main__":
-    # Criar banco mongodb - ok
-    # Conectar ao django
-    # Escrever models
-
-    example_os = {
-        "id": 1,
-        "OS": "OO"
-    }
-    example_themes = {
-        "id": 1,
-        "theme": "Emergency Numbers"
-    }
-
-    example_matches = {
-        "theme": 1,
-        "os": 1,
-        "key_words": ["SIM-MGR", "EmergencyTracker:"]
-    }
-
     print('Starting Project:')
-    log_file = 'logcat.log'
+    log_file = '/home/lucaslb/dev/Lessie/media/logcat_1.txt'
 
     log = read_log(log_file)
     print(log.readlines())
