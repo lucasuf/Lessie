@@ -28,7 +28,10 @@ def read_log(log_file_from_user):
 
 def get_problems():
     # It will get the problems from user
-    pass
+    # Show only problems available for the user
+    # this method will return those problems
+    problems_list = ['Emergency Numbers']
+    return problems_list
 
 
 def get_key_words(problems):
@@ -36,9 +39,12 @@ def get_key_words(problems):
     pass
 
 
-def parse_log_with_key_words(key_words):
+def parse_log_with_key_words(log_file, theme_selected):
+    user_problems_list = get_problems()
+    user_key_words = get_key_words(user_problems_list)
+
     # It will parse the log getting all lines that have the key words
-    pass
+    return log_file
 
 
 if __name__ == "__main__":

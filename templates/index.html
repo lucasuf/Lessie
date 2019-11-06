@@ -2,6 +2,7 @@
 
 {% load static %}
 
+
 {% block content %}
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -10,21 +11,46 @@
   </form>
 
   {% if uploaded_file_url %}
-    <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+   <p>File uploaded: {{ filename }}</p>
+  {% block themes_options %}
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Selecting theme for analysis</h5>
+        <p class="card-text">For now, just one theme is supported. Please chose the one you are interested</p>
+          <form method="post" enctype="multipart/form-data" action="parse_log_theme">
+            {% csrf_token %}
+            <select name="theme_selected">
+                <option selected="selected" disabled>-- Select Theme --</option>
+                {% for option, values in all_themes.items %}
+                    {% for value in values %}
+                        <option>{{option}}:{{value}}</option>
+                    {% endfor %}
+                {% endfor %}
+            </select>
+            <input type="submit" value="Select" >
+              {% if theme_selected %}
+                <p>Theme selected: {{ theme_selected }}</p>
+              {% endif %}
+        </form>
+      </div>
+    </div>
+{% endblock %}
   {% endif %}
 
 {% endblock %}
 
+
+
 {% block text_log %}
-    {% if uploaded_file_url %}
+    {% if uploaded_content_file %}
     <div style="margin-top: 15px;" class="card">
           <div class="card-header">
-            Quote
+            Log analysis for the theme
           </div>
           <div class="card-body">
             <blockquote class="blockquote mb-0">
-              <p>File content: <a href="{{ uploaded_content_file}}">{{ uploaded_content_file | safe}}</a></p>
-              <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+              <p>{{ uploaded_content_file | safe}}</p>
+              <footer class="blockquote-footer">Produced by lucas.lb <cite title="Source Title">Protocol TG</cite></footer>
             </blockquote>
           </div>
     </div>

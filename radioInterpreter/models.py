@@ -1,5 +1,6 @@
 from django.db import models as modeldjango
 from djongo import models
+from pymongo import MongoClient
 
 # Create your models here.
 
@@ -19,6 +20,31 @@ class Theme(models.Model):
     """
     name_theme = models.CharField(max_length=60)
     os = models.CharField(max_length=2, choices=OS_IN_MODELS)
+
+    def get_client(self):
+        self.db = MongoClient(host='mongodb://105.103.67.60:27017/test')
+        client = self.db.lessie_application.radioInterpreter_theme
+
+        return client
+
+    def get_theme_by_id(self, str_id_theme):
+        client = self.get_client()
+        result = client.find_one({'id': str_id_theme})
+
+        return result
+
+    def get_all_themes_available(self):
+        result = {}
+        client = self.get_client()
+        result_all_themes = client.find()
+        for document in result_all_themes:
+            try:
+                result[document['os']].append(document['name_theme'])
+            except KeyError:
+                result[document['os']] = [document['name_theme']]
+
+        return result
+
 
     def __str__(self):
         return self.name_theme
